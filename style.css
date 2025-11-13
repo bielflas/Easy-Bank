@@ -15,7 +15,7 @@ header{
   background-color: #052659;
   color: white;
   padding: 1%;    
-  justify-content: space-between; /para afastar/
+  justify-content: space-between; /*para afastar*/
 }
 
 
@@ -28,7 +28,7 @@ h1{
 
 .headerBotoes{
   display: flex;
-  gap: 35px; /separar os botoes/
+  gap: 35px; /*separar os botoes*/
 
   
 }
