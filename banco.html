@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Login</title>
+    <link rel="stylesheet" href="banco.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+    <div class="headerEasybank">
+        <h1>Easy bank</h1></div>
+    <div class="headerBotoes">
+    
+        <button>Finanças</button>
+        <button>Sobre Nós</button> 
+ 
+    </div>
+</header>
+    <!-- Main Content -->
+    <div class="inicio">
+        <!-- Saldo -->
+        <div class="saldo-card">
+            <span class="saldo-label">Saldo em conta</span>
+            <h2 class="saldo-valor" id="saldo">R$ 5.000,00</h2> <br>
+            <span class="saldo-label cheque">Saldo do cheque</span>
+            <h2 class="saldo-valor cheque" id="saldo-cheque">0,00</h2>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="transferencia-tab" title="Transferência">
+                <svg width="24" height="24" fill="none" stroke="#333" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M17 8l4 4-4 4M21 12H3"/>
+                </svg>
+                <span>Transferência</span>
+            </button>
+            <button class="tab-btn" data-tab="cheque-tab" title="Cheque Especial">
+                <svg width="24" height="24" fill="none" stroke="#333" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="3" y="7" width="18" height="10" rx="2"/>
+                    <path d="M7 11h6"/>
+                    <path d="M7 15h2"/>
+                    <text x="16" y="15" font-size="10" fill="#333" font-family="Arial" font-weight="bold">R$</text>
+                </svg>
+                <span>Cheque</span>
+            </button>
+            <button class="tab-btn" data-tab="historico-tab" title="Histórico">
+                <svg width="24" height="24" fill="none" stroke="#333" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 6v6l4 2"/>
+                </svg>
+                <span>Histórico</span>
+            </button>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="tab-content active" id="transferencia-tab">
+            <input type="text" id="destinatario" placeholder="Para quem você vai transferir?">
+            <input type="text" id="transferencia" placeholder="Valor da transferência">
+            <input type="button" value="Transferir" id="btn-submit" onclick="transferir()">
+        </div>
+
+        <div class="tab-content" id="cheque-tab">
+            <input type="text" id="cheque" placeholder="Cheque especial">
+            <input type="button" value="cheque" id="btn-submit" onclick="cheque()">
+        </div>
+
+        <div class="tab-content" id="historico-tab">
+            <div class="historico">
+                <h3>Histórico de Transações</h3>
+                <ul id="historico-list">
+                    <!-- As transações serão adicionadas aqui dinamicamente -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        // Variáveis globais
+        let historico = [];
+        let saldo = 5000;
+        let saldoCheque = 0;
+        saldo += saldoCheque;
+        document.getElementById('saldo-cheque').textContent = `R$ ${saldoCheque.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        document.getElementById('saldo').textContent = `R$ ${saldo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+        // Função de login
+        function login(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                document.getElementById('user').textContent = username;
+                document.getElementById('header').scrollIntoView({ behavior: 'auto' });
+                document.querySelector('.login-container').style.display = 'none';
+            } else {
+                alert('Preencha todos os campos!');
+            }
+        }
+     
+
+        // Função de transferência
+        function transferir() {
+            const transferencia = Number(document.getElementById('transferencia').value);
+            if (!isNaN(transferencia) && transferencia > 0 && transferencia <= (saldo + saldoCheque)) {
+                if (transferencia <= saldo) {
+                    saldo -= transferencia;
+                } else {
+                    const restante = transferencia - saldo;
+                    saldo = 0;
+                    saldoCheque -= restante;
+                }
+
+                document.getElementById('saldo').textContent = `R$ ${saldo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                document.getElementById('saldo-cheque').textContent = `R$ ${saldoCheque.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                    
+                historico.push({
+                    destinarario: document.getElementById('destinatario').value,
+                    tipo: 'Transferência enviada',
+                    valor: transferencia,
+                    data: new Date().toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit'})
+                }); 
+
+                atualizarHistorico();
+            } else {
+                alert('Saldo indisponível');
+            }
+        }
+        
+        // Função para atualizar o histórico
+        function atualizarHistorico() {
+            const historicoList = document.getElementById('historico-list');
+            historicoList.innerHTML = '';
+            historico.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.tipo}: R$ ${item.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2})}${item.destinarario ? ' para ' + item.destinarario : ''} às ${item.data}`;
+                historicoList.appendChild(li);
+                li.classList.add('historico-item');
+            });
+        }
+ 
+        // Função para adicionar cheque especial
+        function cheque() {
+            const chequeEspecial = Number(document.getElementById('cheque').value);
+            saldoCheque += chequeEspecial;
+            document.getElementById('saldo-cheque').textContent = `R$ ${saldoCheque.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            historico.push({
+                tipo: 'Cheque Especial',
+                valor: chequeEspecial,
+                data: new Date().toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+            });
+            atualizarHistorico();
+        }
+
+        // Evento de clique para alternar abas
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                document.getElementById(this.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
