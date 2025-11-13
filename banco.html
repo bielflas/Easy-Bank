@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de Login</title>
     <link rel="stylesheet" href="banco.css">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+</style>
 </head>
 <body>
 
@@ -85,8 +88,8 @@
         let saldo = 5000;
         let saldoCheque = 0;
         saldo += saldoCheque;
-        document.getElementById('saldo-cheque').textContent = `R$ ${saldoCheque.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-        document.getElementById('saldo').textContent = `R$ ${saldo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        document.getElementById('saldo-cheque').textContent = R$ ${saldoCheque.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})};
+        document.getElementById('saldo').textContent = R$ ${saldo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})};
 
         // Função de login
         function login(event) {
@@ -116,8 +119,8 @@
                     saldoCheque -= restante;
                 }
 
-                document.getElementById('saldo').textContent = `R$ ${saldo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-                document.getElementById('saldo-cheque').textContent = `R$ ${saldoCheque.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                document.getElementById('saldo').textContent = R$ ${saldo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})};
+                document.getElementById('saldo-cheque').textContent = R$ ${saldoCheque.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})};
                     
                 historico.push({
                     destinarario: document.getElementById('destinatario').value,
@@ -138,7 +141,7 @@
             historicoList.innerHTML = '';
             historico.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = `${item.tipo}: R$ ${item.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2})}${item.destinarario ? ' para ' + item.destinarario : ''} às ${item.data}`;
+                li.textContent = ${item.tipo}: R$ ${item.valor.toLocaleString('pt-BR', {minimumFractionDigits: 2})}${item.destinarario ? ' para ' + item.destinarario : ''} às ${item.data};
                 historicoList.appendChild(li);
                 li.classList.add('historico-item');
             });
@@ -148,7 +151,7 @@
         function cheque() {
             const chequeEspecial = Number(document.getElementById('cheque').value);
             saldoCheque += chequeEspecial;
-            document.getElementById('saldo-cheque').textContent = `R$ ${saldoCheque.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('saldo-cheque').textContent = R$ ${saldoCheque.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})};
             historico.push({
                 tipo: 'Cheque Especial',
                 valor: chequeEspecial,
