@@ -1,11 +1,11 @@
+/* banco.css (para banco.html) */
 *{
-    margin: 0;
-    padding: 0;
-    font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 .poppins-light {
-  font-family: "Poppins", sans-serif;
   font-weight: 300;
   font-style: normal;
 }
@@ -14,17 +14,15 @@ header{
   display: flex;
   background-color: #052659;
   color: white;
-  padding: 1%;    
-  justify-content: space-between; /para afastar/
-
-    
-}   
+  padding: 1%;
+  justify-content: space-between; /* para afastar */
+  align-items: center;
+}
 
 .headerBotoes{
   display: flex;
-  gap: 35px; /separar os botoes/
+  gap: 35px; /* separar os botoes */
   color: rgb(116, 75, 23);
-  
 }
 
 button{
@@ -33,7 +31,7 @@ button{
   font-size: 20px;
   color: white;
   cursor: pointer;
-  margin: 0 100px 0 0;
+  margin: 0 20px 0 0;
 }
 
 a{
@@ -42,53 +40,125 @@ a{
 }
 
 h1{
-    margin: 0 0 0 100px;
-    font-size: 40px;
-    text-align: start;
+  margin: 0 0 0 100px;
+  font-size: 40px;
+  text-align: start;
 }
-
 
 body{
-  margin: 0; /no sei oq botar aq/
+  margin: 0;
+  background-color: #f5f5f5;
+  color: #191919;
 }
 
-.body{
-   background: url("https://portal.resolvvi.com/wp-content/uploads/2021/03/software-para-advogados.jpg")
-   no-repeat center/cover;
-  height: 100vh;
-  
+/* .body é usado na home; aqui usamos .inicio */
+.inicio{
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
+/* saldo */
+.saldo-card{
+  color: var(--cor-texto, #191919);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
 
+.saldo-label{
+  font-size: 15px;
+  font-weight: 500;
+}
 
-.texto1{
+.saldo-valor{
+  font-size: 40px;
+  font-weight: 700;
+  margin: 8px 0 0 0;
+}
 
-  height: 80%;
+/* Histórico */
+ul#historico-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.historico-item{
+  display: block;
+  padding: 12px;
+  margin: 8px 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+/* Tabs */
+.tabs {
   display: flex;
-  flex-direction: column;
-  align-items: end;
-  justify-content: center;
-  width: 90%;
+  gap: 10px;
+  margin: 0 auto 20px auto;
+  padding: 6px 10px;
+  background-color: #f5f5f5;
+  border-radius: 10px 10px 0 0;
+  flex-wrap: wrap;
+  max-width: 100%;
 }
 
-
-.h2_body{
-  font-weight: normal;
-  font-size: 50px;
-  color: aliceblue;
-
-
+.tab-btn {
+  background: #f5f5f5;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: #5483B3;
+  font-weight: 500;
+  outline: none;
 }
 
-span{
-  font-size: 60px;
-  font-weight: bold;
+.tab-btn.active {
+  background: #fff;
+  border-bottom: 3px solid #5483B3;
+  color: #5483B3;
+  font-weight: 700;
 }
 
+/* Tab contents */
+.tab-content {
+  display: none;
+  padding: 20px 0 0 0;
+}
 
-.button_body{
-  letter-spacing: 2px;
-  font-size: 80px;
-  color: #052659;
-  text-decoration: underline;
+.tab-content.active {
+  display: block;
+}
+
+.tab-content input[type="text"],
+.tab-content input[type="number"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+/* Botão submit */
+#btn-transferir, #btn-cheque {
+  background: #7DA0C4;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  cursor: pointer;
 }
